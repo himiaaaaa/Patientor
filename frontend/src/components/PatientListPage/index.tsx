@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Box, Table, Button, TableHead, Typography, TableCell, TableRow, TableBody } from '@mui/material';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "./../../@/components/ui/table"
+import { Button } from "src/@/components/ui/button";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 
@@ -50,24 +58,22 @@ const PatientListPage = ({ patients, setPatients } : Props ) => {
 
   return (
     <div className="App">
-      <Box>
-        <Typography align="center" variant="h6">
+      <h3 className="flex justify-center scroll-m-20 text-2xl font-semibold tracking-tight mb-5">
           Patient list
-        </Typography>
-      </Box>
-      <Table style={{ marginBottom: "1em" }}>
-        <TableHead>
+      </h3>
+      <Table>
+        <TableHeader>
           <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Gender</TableCell>
-            <TableCell>Occupation</TableCell>
-            <TableCell>Health Rating</TableCell>
+            <TableHead>Name</TableHead>
+            <TableHead>Gender</TableHead>
+            <TableHead>Occupation</TableHead>
+            <TableHead>Health Rating</TableHead>
           </TableRow>
-        </TableHead>
+        </TableHeader>
         <TableBody>
           {Object.values(patients).map((patient: Patient) => (
             <TableRow key={patient.id}>
-              <TableCell>
+              <TableCell className="font-medium text-blue-500 hover:text-blue-700 focus:text-blue-700">
                 <Link to={`/patients/${patient.id}`}>
                   {patient.name}
                 </Link>
@@ -88,7 +94,7 @@ const PatientListPage = ({ patients, setPatients } : Props ) => {
         error={error}
         onClose={closeModal}
       />
-      <Button variant="contained" onClick={() => openModal()}>
+      <Button className="bg-black hover:bg-black text-white rounded mt-5" onClick={() => openModal()}>
         Add New Patient
       </Button>
     </div>

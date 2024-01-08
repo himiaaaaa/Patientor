@@ -1,6 +1,14 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "baseUrl": ".",
+    "paths": {
+      "@app/*": ["./app/*"],
+      "@assets/*": ["./assets/*"],
+      "@components/*": ["./components/*"],
+      "@styles/*": ["./styles/*"],
+      "@utils/*": ["./utils/*"]
+    },
     "lib": [
       "dom",
       "dom.iterable",
@@ -22,5 +30,5 @@
   },
   "include": [
     "src"
-  ]
+, "tailwind.config.js"  ]
 }
