@@ -1,9 +1,18 @@
 import { useState } from "react";
-import { Box, Table, Button, TableHead, Typography, TableCell, TableRow, TableBody } from '@mui/material';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "./../../@/components/ui/table"
+
+import { Button } from "src/@/components/ui/button";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 
-import { PatientFormValues, Patient } from "../../types";
+import { PatientFormValues, Patient, HealthCheckEntry } from "../../types";
 import AddPatientModal from "../AddPatientModal";
 
 import HealthRatingBar from "../HealthRatingBar";
@@ -26,6 +35,17 @@ const PatientListPage = ({ patients, setPatients } : Props ) => {
     setModalOpen(false);
     setError(undefined);
   };
+
+  const getLastHealthRating = (patient: Patient): number => {
+    const healthCheckEntries = patient.entries.filter((entry): entry is HealthCheckEntry => entry.type === 'HealthCheck');
+
+    if (healthCheckEntries.length > 0) {
+      const lastHealthCheckEntry = healthCheckEntries[healthCheckEntries.length - 1];
+      return lastHealthCheckEntry.healthCheckRating || 0;
+    }
+
+    return 0;
+  }
 
   const submitNewPatient = async (values: PatientFormValues) => {
     try {
@@ -50,24 +70,22 @@ const PatientListPage = ({ patients, setPatients } : Props ) => {
 
   return (
     <div className="App">
-      <Box>
-        <Typography align="center" variant="h6">
+      <h3 className="flex justify-center scroll-m-20 text-2xl font-semibold tracking-tight mb-5">
           Patient list
-        </Typography>
-      </Box>
-      <Table style={{ marginBottom: "1em" }}>
-        <TableHead>
+      </h3>
+      <Table>
+        <TableHeader>
           <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Gender</TableCell>
-            <TableCell>Occupation</TableCell>
-            <TableCell>Health Rating</TableCell>
+            <TableHead>Name</TableHead>
+            <TableHead>Gender</TableHead>
+            <TableHead>Occupation</TableHead>
+            <TableHead>Health Rating</TableHead>
           </TableRow>
-        </TableHead>
+        </TableHeader>
         <TableBody>
           {Object.values(patients).map((patient: Patient) => (
             <TableRow key={patient.id}>
-              <TableCell>
+              <TableCell className="font-medium text-blue-500 hover:text-blue-700 focus:text-blue-700">
                 <Link to={`/patients/${patient.id}`}>
                   {patient.name}
                 </Link>
@@ -76,7 +94,7 @@ const PatientListPage = ({ patients, setPatients } : Props ) => {
               <TableCell>{patient.gender}</TableCell>
               <TableCell>{patient.occupation}</TableCell>
               <TableCell>
-                <HealthRatingBar showText={false} rating={1} />
+                <HealthRatingBar showText={false} rating={getLastHealthRating(patient)} />
               </TableCell>
             </TableRow>
           ))}
@@ -88,7 +106,7 @@ const PatientListPage = ({ patients, setPatients } : Props ) => {
         error={error}
         onClose={closeModal}
       />
-      <Button variant="contained" onClick={() => openModal()}>
+      <Button className="bg-black hover:bg-black text-white rounded mt-5" onClick={() => openModal()}>
         Add New Patient
       </Button>
     </div>

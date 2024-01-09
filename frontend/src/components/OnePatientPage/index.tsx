@@ -5,16 +5,22 @@ import MaleIcon from '@mui/icons-material/Male';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 import WorkIcon from '@mui/icons-material/Work';
-import { Typography, Button } from "@mui/material";
-import Box from '@mui/material/Box';
+import { Button } from "src/@/components/ui/button";
 import patientService from "../../services/patients";
 import axios from "axios";
 import AddEntryModel from "../AddEntryModel";
+import {
+    Card,
+    CardHeader,
+    Avatar,
+    CardBody,
+    CardFooter
+  } from "@material-tailwind/react";
 
 interface Props {
     patient : Patient | null | undefined
     diagnoses: Diagnosis[]
-  }
+}
 
 const genderId = (gender: Gender | undefined ) => {
     switch(gender){
@@ -50,25 +56,25 @@ const EntryDetails = ({ entry }: { entry: Entry } ) => {
     switch(entry.type){
         case "HealthCheck": 
             return (
-                <div>
-                    {HealthRating(entry.healthCheckRating)}
+                <div className="font-thin mt-4">
+                    <strong>Health Rating: </strong> {HealthRating(entry.healthCheckRating)}
                 </div>
             );
         case "Hospital":
             return (
-                <div>
-                    <p>Discharge date: {entry.discharge.date}</p>
+                <div className="font-thin">
+                    <p className="mt-4"><strong>Discharge date: </strong>{entry.discharge.date}</p>
                     <ul>
-                       <li>criteria: <i>{entry.discharge.criteria}</i></li> 
+                       <li className="mt-4"><strong>Criteria: </strong><i>{entry.discharge.criteria}</i></li> 
                     </ul>
                     
                 </div>
             );
         case "OccupationalHealthcare":
             return (
-                <div>
+                <div className="mt-4 font-thin">
                     {entry.sickLeave? 
-                      <p>SICK LEAVE: {entry.sickLeave.startDate} - {entry.sickLeave.endDate}</p>
+                      <p><strong>Sick Leave: </strong>{entry.sickLeave.startDate} - {entry.sickLeave.endDate}</p>
                        : null
                     }
                 </div>
@@ -115,49 +121,83 @@ const OnePatientPage = ({ patient, diagnoses }: Props) => {
 
    return(
     <div>
-       <Typography component="h5" variant="h5">{patient?.name}{genderId(patient?.gender)}</Typography>
-       <p>ssn: {patient?.ssn}</p>
-       <p>occupation: {patient?.occupation}</p>
+       <Card className="w-full items-center mb-10 text-black">
+            <CardHeader
+              floated={false}
+              shadow={false}
+              className="mx-0 flex items-center gap-4 py-8 pl-5"
+            >
+              <Avatar
+                size="xl"
+                variant="circular"
+                src={`https://eu.ui-avatars.com/api/?name=${patient?.name[0]}+${patient?.name.split(' ')[1]?.[0]}&size=250`}
+                className="rounded-sm"
+              />
+              <div className="flex w-full flex-col gap-0.5">
+                <div className="flex items-center justify-between">
+                  <h3 className="flex justify-center scroll-m-20 text-lg font-semibold tracking-tight mb-2">
+                    {patient?.name} {genderId(patient?.gender)}
+                  </h3>
+                </div>
+                <p ><strong>ssn: </strong>{patient?.ssn}</p>
+                <p ><strong>occupation: </strong>{patient?.occupation}</p>
+              </div>
+            </CardHeader>
+        </Card>
+        
+        
         <AddEntryModel
             onSubmit={submitNewEntry}
             error={error}
             onClose={closeModal}
             modalOpen={modalOpen}
         />
-       <Button variant="contained" onClick={() => openModal()}>
-         Add New Entry
-       </Button>
-       <Typography component="h6" variant="h6">entries</Typography>
+
+    
+        <h3 className="flex justify-center scroll-m-20 text-2xl font-semibold tracking-tight mb-5 mt-10">
+          Entries
+        </h3>
        {patient?.entries.map(e => {
             return (
                 <div key={e.id}>
-                  <Box sx={{ border: '1px solid grey', borderRadius: 4, padding: 2, margin: 1  }} >
+                  <Card className="pt-5 py-5 px-5 text-black mb-8">
+                  <CardHeader className="text-center text-black shadow-none font-thin">
                     <p>{e.date}</p>
+                  </CardHeader>
+                  <CardBody>
                     {e.type === "OccupationalHealthcare" ?
                         e.employerName ? 
-                            <p>
-                                 <WorkIcon/> {e.employerName} 
+                            <p className="mb-5">
+                                 <WorkIcon /> {e.employerName} 
                             </p> 
-                            : <WorkIcon /> 
-                        : <MedicalServicesIcon />
+                            : <WorkIcon className="mb-5"/> 
+                        : <MedicalServicesIcon className="mb-5"/>
                     }
-                    <p><i>{e.description}</i></p>
-                    <ul>
+                    <p className="underline font-thin">{e.description}</p>
+                    <ul className="font-thin mt-4">
                         {e.diagnosisCodes?.map(d => {
                             const diagnosis = diagnoses.find(diagnose => diagnose.code === d)?.name
                             return ( 
-                            <li key={d}>{d} {diagnosis? diagnosis : null}</li> 
+                            <li key={d}>
+                                <strong>{d}</strong> {`-->`} {diagnosis? diagnosis : null}
+                            </li> 
                             )
                           }
                         )}
                      </ul>
                      <EntryDetails entry={e}/>
-                     <p>diagnose by {e.specialist}</p>
-                  </Box> 
+                     </CardBody>
+                     <CardFooter className="mb-0 font-thin">
+                     <p>Diagnose by {e.specialist}</p>
+                     </CardFooter>
+                  </Card> 
                  
                 </div>)
             }
         )}
+        <Button className="bg-black hover:bg-black text-white rounded mt-5" onClick={() => openModal()}>
+            Add New Entry
+        </Button>
     </div>
    )
 }
