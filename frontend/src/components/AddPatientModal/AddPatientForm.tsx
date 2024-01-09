@@ -1,6 +1,6 @@
 import { useState, SyntheticEvent } from "react";
 
-import {  TextField, InputLabel, MenuItem, Select, Grid, Button, SelectChangeEvent } from '@mui/material';
+import {  TextField, InputLabel, MenuItem, Select, Grid, Button, SelectChangeEvent, Typography } from '@mui/material';
 
 import { PatientFormValues, Gender } from "../../types";
 
@@ -50,18 +50,23 @@ const AddPatientForm = ({ onCancel, onSubmit }: Props) => {
   return (
     <div>
       <form onSubmit={addPatient}>
+        <Typography component="h5" variant="h5">New Patient</Typography>
+        <InputLabel style={{ marginTop: 20 }}>Name</InputLabel>
         <TextField
-          label="Name"
           fullWidth 
           value={name}
           onChange={({ target }) => setName(target.value)}
         />
+
+        <InputLabel style={{ marginTop: 20 }}>Social security number</InputLabel>
         <TextField
           label="Social security number"
           fullWidth
           value={ssn}
           onChange={({ target }) => setSsn(target.value)}
         />
+
+        <InputLabel style={{ marginTop: 20 }}>Date of birth</InputLabel>
         <TextField
           label="Date of birth"
           placeholder="YYYY-MM-DD"
@@ -69,6 +74,8 @@ const AddPatientForm = ({ onCancel, onSubmit }: Props) => {
           value={dateOfBirth}
           onChange={({ target }) => setDateOfBirth(target.value)}
         />
+
+        <InputLabel style={{ marginTop: 20 }}>Occupation</InputLabel>
         <TextField
           label="Occupation"
           fullWidth
@@ -101,7 +108,7 @@ const AddPatientForm = ({ onCancel, onSubmit }: Props) => {
             <Button
               color="secondary"
               variant="contained"
-              style={{ float: "left" }}
+              style={{ float: "left", marginTop: 20, marginBottom: 30 }}
               type="button"
               onClick={onCancel}
             >
@@ -111,7 +118,7 @@ const AddPatientForm = ({ onCancel, onSubmit }: Props) => {
           <Grid item>
             <Button
               style={{
-                float: "right",
+                float: "right", marginTop: 20, marginBottom: 30
               }}
               type="submit"
               variant="contained"

@@ -7,11 +7,12 @@ import {
   TableHeader,
   TableRow,
 } from "./../../@/components/ui/table"
+
 import { Button } from "src/@/components/ui/button";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 
-import { PatientFormValues, Patient } from "../../types";
+import { PatientFormValues, Patient, HealthCheckEntry } from "../../types";
 import AddPatientModal from "../AddPatientModal";
 
 import HealthRatingBar from "../HealthRatingBar";
@@ -34,6 +35,17 @@ const PatientListPage = ({ patients, setPatients } : Props ) => {
     setModalOpen(false);
     setError(undefined);
   };
+
+  const getLastHealthRating = (patient: Patient): number => {
+    const healthCheckEntries = patient.entries.filter((entry): entry is HealthCheckEntry => entry.type === 'HealthCheck');
+
+    if (healthCheckEntries.length > 0) {
+      const lastHealthCheckEntry = healthCheckEntries[healthCheckEntries.length - 1];
+      return lastHealthCheckEntry.healthCheckRating || 0;
+    }
+
+    return 0;
+  }
 
   const submitNewPatient = async (values: PatientFormValues) => {
     try {
@@ -82,7 +94,7 @@ const PatientListPage = ({ patients, setPatients } : Props ) => {
               <TableCell>{patient.gender}</TableCell>
               <TableCell>{patient.occupation}</TableCell>
               <TableCell>
-                <HealthRatingBar showText={false} rating={1} />
+                <HealthRatingBar showText={false} rating={getLastHealthRating(patient)} />
               </TableCell>
             </TableRow>
           ))}

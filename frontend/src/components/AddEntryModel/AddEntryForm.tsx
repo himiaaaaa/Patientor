@@ -124,7 +124,6 @@ const AddEntryForm = ({ onCancel, onSubmit }: Props) => {
 
                 <InputLabel style={{ marginTop: 20 }}>Description</InputLabel>
                 <TextField 
-                    label='description'
                     fullWidth
                     value={description}
                     onChange={({ target }) => setDescription(target.value)}
@@ -140,7 +139,6 @@ const AddEntryForm = ({ onCancel, onSubmit }: Props) => {
                 
                 <InputLabel style={{ marginTop: 20 }}>Specialist</InputLabel>
                 <TextField 
-                    label='specialist'
                     fullWidth
                     value={specialist}
                     onChange={({ target }) => setSpecialist(target.value)}
@@ -149,7 +147,6 @@ const AddEntryForm = ({ onCancel, onSubmit }: Props) => {
             
                 <InputLabel style={{ marginTop: 20 }}>Diagnosis codes</InputLabel>
                 <Select
-                    label="Diagnosis codes"
                     multiple
                     fullWidth
                     value={diagnosisCodes}
@@ -167,7 +164,6 @@ const AddEntryForm = ({ onCancel, onSubmit }: Props) => {
                     <>
                        <InputLabel style={{ marginTop: 20 }}>HealthCheckRating</InputLabel>
                         <Select
-                            label="HealthCheckRating"
                             fullWidth
                             value={healthCheckRating.toString()}
                             onChange={onHealthCheckRatingChange}
@@ -198,7 +194,6 @@ const AddEntryForm = ({ onCancel, onSubmit }: Props) => {
                         />
                         <InputLabel style={{ marginTop: 20 }}>Discharge Criteria</InputLabel>
                         <TextField 
-                            label='discharge criteria'
                             fullWidth
                             value={dischargeCriteria}
                             onChange={({ target }) => setDischargeCriteria(target.value)}
@@ -210,7 +205,6 @@ const AddEntryForm = ({ onCancel, onSubmit }: Props) => {
                     <>
                        <InputLabel style={{ marginTop: 20 }}>Employer Name</InputLabel>
                         <TextField 
-                            label='employername'
                             fullWidth
                             value={employerName}
                             onChange={({ target }) => setEmployerName(target.value)}
@@ -234,12 +228,13 @@ const AddEntryForm = ({ onCancel, onSubmit }: Props) => {
                     </>
                 }
 
+                {/* bottm button */}
                 <Grid>
                     <Grid item>
                         <Button
                             color='secondary'
                             variant='contained'
-                            style={{ float: 'left' }}
+                            style={{ float: 'left', marginTop: 30 }}
                             type='button'
                             onClick={onCancel}
                         >
@@ -249,7 +244,7 @@ const AddEntryForm = ({ onCancel, onSubmit }: Props) => {
 
                     <Grid item>
                         <Button
-                            style={{ float: 'right' }}
+                            style={{ float: 'right', marginTop: 30 }}
                             type='submit'
                             variant="contained"
                         >
