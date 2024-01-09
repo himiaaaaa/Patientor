@@ -100,6 +100,8 @@ const AddEntryForm = ({ onCancel, onSubmit }: Props) => {
                     }: undefined
                 })
         }
+
+        window.location.reload()
     };
 
     return (

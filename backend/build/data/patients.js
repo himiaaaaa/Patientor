@@ -104,7 +104,7 @@ const patients = [
                 specialist: 'Dr Byte House',
                 type: 'HealthCheck',
                 description: 'Digital overdose, very bytestatic. Otherwise healthy.',
-                healthCheckRating: 0,
+                healthCheckRating: 2,
             },
         ],
     },

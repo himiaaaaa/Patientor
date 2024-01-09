@@ -100,6 +100,7 @@ const parseDischarge = (object: unknown): Discharge => {
 };
 
 const toNewEntry = (object: unknown): EntryWithoutId => {
+
     if( !object || typeof object !== 'object' ){
         throw new Error('Incorrect or missing data');
     }
@@ -113,7 +114,7 @@ const toNewEntry = (object: unknown): EntryWithoutId => {
         description: parseDescription(object.description),
         date: parseDate(object.date),
         specialist: parseSpecialist(object.specialist),
-        diagnosisCodes: parseDiagnosisCodes(object.diagnosisCodes)
+        diagnosisCodes: parseDiagnosisCodes(object)
     }
     : 
     {

@@ -121,6 +121,7 @@ const OnePatientPage = ({ patient, diagnoses }: Props) => {
 
    return(
     <div>
+       {/* {patient profile card} */}
        <Card className="w-full items-center mb-10 text-black">
             <CardHeader
               floated={false}
@@ -145,7 +146,7 @@ const OnePatientPage = ({ patient, diagnoses }: Props) => {
             </CardHeader>
         </Card>
         
-        
+        {/* add entry */}
         <AddEntryModel
             onSubmit={submitNewEntry}
             error={error}
@@ -153,7 +154,7 @@ const OnePatientPage = ({ patient, diagnoses }: Props) => {
             modalOpen={modalOpen}
         />
 
-    
+        {/* entry list */}
         <h3 className="flex justify-center scroll-m-20 text-2xl font-semibold tracking-tight mb-5 mt-10">
           Entries
         </h3>

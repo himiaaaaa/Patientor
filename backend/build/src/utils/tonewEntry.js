@@ -96,7 +96,7 @@ const toNewEntry = (object) => {
                 description: parseDescription(object.description),
                 date: parseDate(object.date),
                 specialist: parseSpecialist(object.specialist),
-                diagnosisCodes: parseDiagnosisCodes(object.diagnosisCodes)
+                diagnosisCodes: parseDiagnosisCodes(object)
             }
             :
                 {
