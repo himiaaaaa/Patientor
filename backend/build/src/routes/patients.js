@@ -9,7 +9,7 @@ const toNewPatient_1 = __importDefault(require("../utils/toNewPatient"));
 const tonewEntry_1 = __importDefault(require("../utils/tonewEntry"));
 const router = express_1.default.Router();
 router.get('/', (_req, res) => {
-    res.send(patientService_1.default.getPatient());
+    res.json(patientService_1.default.getPatient());
 });
 router.get('/:id', (req, res) => {
     res.send(patientService_1.default.getPatientForOne(req.params.id));
