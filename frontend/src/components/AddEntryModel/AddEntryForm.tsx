@@ -101,7 +101,7 @@ const AddEntryForm = ({ onCancel, onSubmit }: Props) => {
                 })
         }
 
-        window.location.reload()
+        //window.location.reload()
     };
 
     return (
