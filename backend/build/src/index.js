@@ -11,6 +11,7 @@ const app = (0, express_1.default)();
 // eslint-disable-next-line @typescript-eslint/no-unsafe-call
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
+app.use(express_1.default.static('build'));
 const PORT = process.env.PORT || 3001;
 app.get('/api/ping', (_req, res) => {
     console.log('someone pinged here');
