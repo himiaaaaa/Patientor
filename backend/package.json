@@ -9,7 +9,7 @@
     "dev": "ts-node-dev src/index.ts",
     "lint": "eslint --ext .ts .",
     "start": "node ./build/src/index.js",
-    "build:ui": "rm -rf build && cd ../frontend && npm run build && cp -r build ../backend",
+    "build:ui": "rm -rf build && npm run build && cd ../frontend && npm run build && cp -r build/. ../backend/build/static_build",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
   },
   "author": "Mia",

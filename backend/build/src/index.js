@@ -6,12 +6,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const diagnoses_1 = __importDefault(require("./routes/diagnoses"));
 const patients_1 = __importDefault(require("./routes/patients"));
+const path_1 = __importDefault(require("path"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 // eslint-disable-next-line @typescript-eslint/no-unsafe-call
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
-app.use(express_1.default.static('build'));
+const staticPath = path_1.default.join(__dirname, 'build', 'static_build');
+app.use(express_1.default.static(staticPath));
 const PORT = process.env.PORT || 3001;
 app.get('/api/ping', (_req, res) => {
     console.log('someone pinged here');

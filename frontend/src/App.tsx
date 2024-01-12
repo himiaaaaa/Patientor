@@ -36,7 +36,7 @@ const App = () => {
     };
     void fetchDiagnoseList();
 
-  }, []);
+  }, [patients, diagnoses]);
 
    const match = useMatch('/patients/:id')
 
