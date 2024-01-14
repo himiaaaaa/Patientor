@@ -18,7 +18,7 @@ Live at: https://healthtrack-rghn.onrender.com
 - React
 - TypeScript
 - React Router
-- Material-UI for styling
+- Material-UI, shadcn/ui for styling
 - Axios for HTTP requests
 
 ### Backend
